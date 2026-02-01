@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Jude 💘</title>
+<title>For Judi 💘</title>
 
 <style>
   body{
@@ -27,59 +27,34 @@
     position:relative;
   }
 
-  h1{ font-size:36px; margin:0 0 18px; }
+  h1{
+    font-size:36px;
+    margin-bottom:18px;
+  }
+
   p{
     font-size:18px;
     line-height:1.7;
     color:#333;
-    margin: 0 0 22px;
+    margin-bottom:24px;
   }
 
-  /* Buttons area */
-  .buttonsWrap{
-    margin-top:22px;
-    position:relative;
-    height:110px;             /* space so No can move around */
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
-
-  /* Yes stays left */
   #yes{
-    font-size:26px;
-    padding:18px 40px;
+    font-size:28px;
+    padding:20px 46px;
     border:none;
-    border-radius:18px;
+    border-radius:20px;
     background:#ff2f75;
     color:white;
     font-weight:800;
     cursor:pointer;
-    box-shadow:0 12px 30px rgba(255,47,117,0.4);
-    position:absolute;
-    left:18%;
-    top:50%;
-    transform:translate(-50%, -50%);
+    box-shadow:0 14px 36px rgba(255,47,117,0.45);
   }
 
-  /* No starts right and moves */
-  #no{
-    font-size:14px;
-    padding:8px 14px;
-    border:none;
-    border-radius:12px;
-    background:#bbb;
-    color:#333;
-    cursor:pointer;
-    position:absolute;
-    left:82%;
-    top:50%;
-    transform:translate(-50%, -50%);
-    user-select:none;
-    touch-action:manipulation;
+  #surprise{
+    display:none;
+    margin-top:28px;
   }
-
-  #surprise{ display:none; margin-top:18px; }
 
   .heart{
     position:absolute;
@@ -87,6 +62,7 @@
     animation: float 6s linear infinite;
     opacity:0.3;
   }
+
   @keyframes float{
     0%{transform:translateY(30px); opacity:0;}
     15%{opacity:0.3;}
@@ -97,107 +73,40 @@
 
 <body>
 
-<div class="card" id="card">
+<div class="card">
   <h1>💖 Jude Muslim Ani 💖</h1>
 
   <p>
     You are the love of my life and the one I trust the most.<br>
     You showed me life in a way I had never seen before.<br><br>
+
     With you, I experienced feelings for the very first time,
     and to this day I am grateful for every single second we’ve shared.<br><br>
+
     You are smart, strong, and wise.<br>
     I love you more than anything in this world.
   </p>
 
   <h1>Will you be my Valentine? 💘</h1>
 
-  <div class="buttonsWrap" id="arena">
-    <button id="yes">YES 💖</button>
-    <button id="no">no</button>
-  </div>
+  <button id="yes">YES 💖</button>
 
   <div id="surprise">
-    <h1>YAAAY 💘🎉</h1>
+    <h1>💘</h1>
     <p>
-      You just made my heart the happiest it’s ever been.<br>
-      Valentine mode: <b>ACTIVATED</b> 💕<br><br>
-      I love you.
+      You always make me the happiest person alive, Judi.<br>
+      I see everything you do for me, Jad,<br>
+      and you deserve to be the happiest person alive.
     </p>
   </div>
 </div>
 
 <script>
-  const arena = document.getElementById("arena");
-  const noBtn = document.getElementById("no");
   const yesBtn = document.getElementById("yes");
   const surprise = document.getElementById("surprise");
 
-  // How far "No" dodges each time (a bit away, not random across the whole page)
-  const STEP = 120; // px
-  const SAFE_PADDING = 12;
-
-  function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
-
-  function dodgeAwayFromPointer(clientX, clientY){
-    const a = arena.getBoundingClientRect();
-    const b = noBtn.getBoundingClientRect();
-
-    // current center of "No" relative to arena
-    const noCenterX = (b.left - a.left) + b.width / 2;
-    const noCenterY = (b.top  - a.top)  + b.height / 2;
-
-    // pointer relative to arena
-    const px = clientX - a.left;
-    const py = clientY - a.top;
-
-    // vector from pointer -> No (move further in same direction)
-    let dx = noCenterX - px;
-    let dy = noCenterY - py;
-
-    // if pointer is exactly on it, push diagonally
-    if (Math.abs(dx) < 1 && Math.abs(dy) < 1) { dx = 1; dy = -1; }
-
-    // normalize
-    const len = Math.hypot(dx, dy);
-    dx /= len; dy /= len;
-
-    // new position (center) after dodge
-    let newCX = noCenterX + dx * STEP;
-    let newCY = noCenterY + dy * STEP;
-
-    // boundaries (keep inside arena)
-    const minCX = SAFE_PADDING + b.width / 2;
-    const maxCX = a.width - SAFE_PADDING - b.width / 2;
-    const minCY = SAFE_PADDING + b.height / 2;
-    const maxCY = a.height - SAFE_PADDING - b.height / 2;
-
-    newCX = clamp(newCX, minCX, maxCX);
-    newCY = clamp(newCY, minCY, maxCY);
-
-    // set position as percentages so it behaves well on different screens
-    const leftPct = (newCX / a.width) * 100;
-    const topPct  = (newCY / a.height) * 100;
-
-    noBtn.style.left = leftPct + "%";
-    noBtn.style.top  = topPct  + "%";
-  }
-
-  // Desktop: hover tries to reach it -> it dodges
-  noBtn.addEventListener("mouseenter", (e) => dodgeAwayFromPointer(e.clientX, e.clientY));
-  // Also if they try to click it
-  noBtn.addEventListener("mousedown", (e) => {
-    e.preventDefault();
-    dodgeAwayFromPointer(e.clientX, e.clientY);
-  });
-
-  // Mobile: finger gets near / touches -> it dodges
-  noBtn.addEventListener("touchstart", (e) => {
-    const t = e.touches[0];
-    dodgeAwayFromPointer(t.clientX, t.clientY);
-  }, {passive:true});
-
   yesBtn.addEventListener("click", () => {
-    document.getElementById("arena").style.display = "none";
+    yesBtn.style.display = "none";
     surprise.style.display = "block";
     confetti();
   });
